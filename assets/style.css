@@ -6,11 +6,12 @@
     --font-family: 'Inter', sans-serif;
     --transition-speed: 0.4s;
     
-    /* Light Theme (Override Pico default) */
+    /* Light Theme (High Contrast) */
     --light-bg: #f8fafc;
-    --light-card: rgba(255, 255, 255, 0.8);
-    --light-border: rgba(0, 0, 0, 0.05);
-    --light-text: #1e293b;
+    --light-card: #ffffff;
+    --light-border: rgba(0, 0, 0, 0.1);
+    --light-text: #0f172a;      /* Deeper contrast color */
+    --light-text-sec: #475569;  /* Clearer secondary text */
     
     /* Dark Theme */
     --dark-bg: #0b0e14;
@@ -85,7 +86,13 @@ h1, h2, h3 { font-family: 'Outfit', sans-serif; font-weight: 700; }
 [data-theme="light"] .post-card {
     background: var(--light-card);
     border-color: var(--light-border);
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="light"] .post-card p,
+[data-theme="light"] .post-card time,
+[data-theme="light"] .secondary {
+    color: var(--light-text-sec) !important;
 }
 
 [data-theme="dark"] .post-card {
