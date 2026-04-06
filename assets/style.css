@@ -6,11 +6,11 @@
     --font-family: 'Inter', sans-serif;
     --transition-speed: 0.4s;
     
-    /* Light Theme (High Contrast) */
+    /* Light Theme (Monochrome High Contrast) */
     --light-bg: #f8fafc;
     --light-card: #ffffff;
     --light-border: rgba(0, 0, 0, 0.1);
-    --light-primary: #581c87;   /* Deep high-contrast purple */
+    --light-primary: #000000;   /* Sharp Black for accents */
     --light-text: #0f172a;      /* Deeper contrast color */
     --light-text-sec: #475569;  /* Clearer secondary text */
     
@@ -45,7 +45,7 @@ body {
 /* Theme Specific backgrounds */
 [data-theme="light"] {
     --primary: var(--light-primary);
-    --primary-hover: #4c1d95;
+    --primary-hover: #333333;   /* Charcoal hover */
     --primary-border: var(--light-primary);
     background-color: var(--light-bg);
     color: var(--light-text);
