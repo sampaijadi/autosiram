@@ -36,7 +36,9 @@ ADMIN_HTM = """
 </head>
 <body class="container">
     <nav>
-        <ul><li><strong><a href="/" class="secondary">PYTHON CMS EDITOR</a></strong></li></ul>
+        <ul>
+            <!-- Logo removed to match ultra-minimalist frontend -->
+        </ul>
         <ul>
             <li><button class="outline secondary" onclick="toggleTheme()" style="border:none; box-shadow:none;">🌓</button></li>
             <li><a href="/settings" class="secondary">SETTINGS</a></li>
@@ -125,7 +127,28 @@ ADMIN_HTM = """
             <label>Summary <input type="text" name="summary" value="{{ frontmatter.summary or '' }}"></label>
         </div>
         <label>Markdown Content <textarea name="content" required>{{ content or '' }}</textarea></label>
-        <button type="submit">SAVE TO CONTENT FOLDER</button>
+        
+        <details>
+            <summary>📦 Markdown Quick Guide (Links, Images, etc.)</summary>
+            <div style="font-size: 0.85rem; background: rgba(0,0,0,0.02); padding: 1rem; border-radius: 8px; border: 1px dashed rgba(0,0,0,0.1);">
+                <div class="grid">
+                    <div>
+                        <strong>Text</strong><br>
+                        # Header 1<br>
+                        ## Header 2<br>
+                        **Bold** | *Italic*
+                    </div>
+                    <div>
+                        <strong>Media & Links</strong><br>
+                        Link: [Text](URL)<br>
+                        Image: ![Alt](URL)<br>
+                        List: * Item
+                    </div>
+                </div>
+            </div>
+        </details>
+
+        <button type="submit" style="margin-top:1.5rem;">SAVE TO CONTENT FOLDER</button>
     </form>
     {% endif %}
 </body>
