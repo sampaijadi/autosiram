@@ -1,6 +1,10 @@
 __pycache__/
 *.pyc
-venv/
+.venv/
 .env
+.pytest_cache/
 .DS_Store
+# Don't ignore public/ as we're deploying from it on push sometimes, 
+# although the action builds it. 
+# It's better to keep the repo clean.
 public/

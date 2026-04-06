@@ -3,14 +3,14 @@
 {% block content %}
 <article class="content-area">
     <header>
-        <a href="/" class="secondary" style="font-size: 0.8rem; margin-bottom: 1rem; display: block;">&larr; BACK TO HOME</a>
+        <a href="{{ settings.base_url or '/' }}" class="secondary" style="font-size: 0.8rem; margin-bottom: 1rem; display: block;">&larr; BACK TO HOME</a>
         <h1>{{ title }}</h1>
     </header>
     <section class="content-body">
         {{ content | safe }}
     </section>
     <footer>
-        <a href="/" class="secondary">&larr; Back to Home</a>
+        <a href="{{ settings.base_url or '/' }}" class="secondary">&larr; Back to Home</a>
     </footer>
 </article>
 {% endblock %}
