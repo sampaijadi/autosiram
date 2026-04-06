@@ -56,6 +56,7 @@ ADMIN_HTM = """
         <p class="secondary">Manage your hero text and footer globally.</p>
     </header>
     <form method="POST">
+        <label>Global Site Name (Browser Tab Name) <input type="text" name="site_name" value="{{ settings.site_name or '' }}"></label>
         <div class="grid">
             <label>Hero Title <input type="text" name="hero_title" value="{{ settings.hero_title or '' }}"></label>
             <label>Title Weight
@@ -205,7 +206,7 @@ def manage_settings():
 
     if request.method == 'POST':
         # Update settings dictionary
-        fields = ['hero_title', 'hero_title_weight', 'hero_subtitle', 'hero_subtitle_weight', 'site_description', 'footer_text']
+        fields = ['site_name', 'hero_title', 'hero_title_weight', 'hero_subtitle', 'hero_subtitle_weight', 'site_description', 'footer_text']
         for key in fields:
             settings[key] = request.form.get(key, '')
         with open(filepath, 'w', encoding='utf-8') as f:
