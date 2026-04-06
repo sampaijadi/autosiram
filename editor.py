@@ -223,10 +223,15 @@ def build_site():
 @app.route('/publish')
 def publish_site():
     try:
+        # First, check if there are any changes to commit
+        status = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True).stdout.strip()
+        if not status:
+            return redirect(url_for('dashboard', msg="Nothing to publish—your site is already perfectly up to date! ✨"))
+
         subprocess.run(["git", "add", "."], check=True)
         subprocess.run(["git", "commit", "-m", "Published from CMS Editor"], check=True)
         subprocess.run(["git", "push"], check=True)
-        return redirect(url_for('dashboard', msg="Site pushed to GitHub! It will be live soon."))
+        return redirect(url_for('dashboard', msg="Site pushed to GitHub! It will be live in ~60 seconds. 🚀"))
     except Exception as e:
         return redirect(url_for('dashboard', msg=f"Push failed: {str(e)}"))
 
