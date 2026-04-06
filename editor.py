@@ -39,6 +39,7 @@ ADMIN_HTM = """
         <ul><li><strong><a href="/" class="secondary">PYTHON CMS EDITOR</a></strong></li></ul>
         <ul>
             <li><button class="outline secondary" onclick="toggleTheme()" style="border:none; box-shadow:none;">🌓</button></li>
+            <li><a href="/settings" class="secondary">SETTINGS</a></li>
             <li><a href="/new" role="button" class="outline">NEW POST +</a></li>
         </ul>
     </nav>
@@ -47,6 +48,20 @@ ADMIN_HTM = """
     <div style="background:rgba(139,92,246,0.1); border:1px solid #8b5cf6; padding:1rem; border-radius:10px; margin-bottom:2rem; color:#8b5cf6;">
         {{ message }}
     </div>
+    {% endif %}
+
+    {% if page == 'settings' %}
+    <header style="margin-bottom:2rem;">
+        <h1>Site Settings.</h1>
+        <p class="secondary">Manage your hero text and footer globally.</p>
+    </header>
+    <form method="POST">
+        <label>Hero Title <input type="text" name="hero_title" value="{{ settings.hero_title or '' }}"></label>
+        <label>Hero Subtitle <input type="text" name="hero_subtitle" value="{{ settings.hero_subtitle or '' }}"></label>
+        <label>Site Description <textarea name="site_description">{{ settings.site_description or '' }}</textarea></label>
+        <label>Footer Text (HTML allowed) <input type="text" name="footer_text" value="{{ settings.footer_text or '' }}"></label>
+        <button type="submit" class="primary">SAVE ALL SETTINGS</button>
+    </form>
     {% endif %}
 
     {% if page == 'dashboard' %}
@@ -157,6 +172,24 @@ summary: "{summary}"
             content = parts[2].strip()
             
     return render_template_string(ADMIN_HTM, page='editor', filename=filename, frontmatter=fm, content=content)
+
+@app.route('/settings', methods=['GET', 'POST'])
+def manage_settings():
+    filepath = 'settings.yaml'
+    settings = {}
+    if os.path.exists(filepath):
+        with open(filepath, 'r', encoding='utf-8') as f:
+            settings = yaml.safe_load(f) or {}
+
+    if request.method == 'POST':
+        # Update settings dictionary
+        for key in ['hero_title', 'hero_subtitle', 'site_description', 'footer_text']:
+            settings[key] = request.form.get(key, '')
+        with open(filepath, 'w', encoding='utf-8') as f:
+            yaml.dump(settings, f)
+        return redirect(url_for('dashboard', msg="Site settings updated successfully!"))
+
+    return render_template_string(ADMIN_HTM, page='settings', settings=settings)
 
 @app.route('/build')
 def build_site():

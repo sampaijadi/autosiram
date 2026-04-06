@@ -24,6 +24,12 @@ def build():
 
     posts = []
 
+    # 0. Load Global Settings
+    settings = {}
+    if os.path.exists('settings.yaml'):
+        with open('settings.yaml', 'r', encoding='utf-8') as f:
+            settings = yaml.safe_load(f) or {}
+
     # 1. Process all markdown files in content/
     for filename in os.listdir(CONTENT_DIR):
         if filename.endswith('.md'):
@@ -70,7 +76,8 @@ def build():
         rendered_post = post_template.render(
             title=post['title'],
             date=post['date'],
-            content=post['content']
+            content=post['content'],
+            settings=settings
         )
         with open(output_post_path, 'w', encoding='utf-8') as f:
             f.write(rendered_post)
@@ -78,7 +85,8 @@ def build():
     # 3. Render the index page
     rendered_index = index_template.render(
         title="Home",
-        posts=posts
+        posts=posts,
+        settings=settings
     )
     with open(os.path.join(OUTPUT_DIR, 'index.html'), 'w', encoding='utf-8') as f:
         f.write(rendered_index)

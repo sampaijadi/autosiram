@@ -3,8 +3,8 @@
 {% block content %}
 <section class="hero-main">
     <header>
-        <h1>Welcome to <span style="color: var(--primary);">Your Story.</span> <br> <span style="opacity: 0.6; font-size: 0.8em;">Static. Fast. Elegant.</span></h1>
-        <p>A minimalist CMS powered by Python and Pico.css. Perfect for hosting on GitHub Pages.</p>
+        <h1>{{ settings.hero_title }} <br> <span style="opacity: 0.6; font-size: 0.8em;">{{ settings.hero_subtitle }}</span></h1>
+        <p>{{ settings.site_description }}</p>
     </header>
 </section>
 
