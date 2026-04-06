@@ -4,11 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }} - Python CMS</title>
-    <meta name="description" content="A beautiful static site generated with Python CMS.">
     <!-- Pico.css -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.purple.min.css">
-    <!-- Custom Enhancements -->
+    <!-- Custom Styles -->
     <link rel="stylesheet" href="/assets/style.css">
+    
+    <script>
+        // Theme preference manager
+        const theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const target = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', target);
+            localStorage.setItem('theme', target);
+        }
+    </script>
 </head>
 <body>
     <header class="container">
@@ -18,8 +30,13 @@
             </ul>
             <ul>
                 <li><a href="/">HOME</a></li>
-                <li><a href="#" class="secondary">ABOUT</a></li>
-                <li><a href="https://github.com/yourusername/reponame" role="button" class="outline">DEPLOY TO GITHUB</a></li>
+                <li>
+                    <button class="theme-toggle outline secondary" onclick="toggleTheme()" aria-label="Toggle Theme" style="border:none; box-shadow:none;">
+                        <!-- Sun Icon -->
+                        <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                    </button>
+                </li>
+                <li><a href="https://github.com/sampaijadi/autosiram" role="button" class="outline">SOURCE 🛠️</a></li>
             </ul>
         </nav>
     </header>
@@ -30,7 +47,10 @@
 
     <footer class="container">
         <hr>
-        <small>&copy; 2026 Python-Powered Static CMS. Built for Performance.</small>
+        <div class="grid">
+            <small>&copy; 2026 Python-Powered Static CMS. Built for Performance.</small>
+            <small style="text-align: right;"><a href="/" class="secondary">Back to Dashboard</a></small>
+        </div>
     </footer>
 </body>
 </html>
