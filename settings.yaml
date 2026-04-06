@@ -1,5 +1,6 @@
 footer_text: '&copy; 2026'
 hero_subtitle: Tanam Tinggal Tuai
+hero_subtitle_weight: '400'
 hero_title: Sistem Siraman Automatik
-site_description: A minimalist CMS powered by Python and Pico.css. Perfect for hosting
-  on GitHub Pages.
+hero_title_weight: '700'
+site_description: Panduan sistem siraman automatik

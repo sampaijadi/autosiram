@@ -3,7 +3,7 @@
 {% block content %}
 <section class="hero-main">
     <header>
-        <h1 style="font-weight: {{ settings.hero_title_weight or '700' }};">{{ settings.hero_title }} <br> <span style="opacity: 0.6; font-size: 0.8em; font-weight: 400;">{{ settings.hero_subtitle }}</span></h1>
+        <h1 style="font-weight: {{ settings.hero_title_weight or '700' }};">{{ settings.hero_title }} <br> <span style="opacity: 0.6; font-size: 0.8em; font-weight: {{ settings.hero_subtitle_weight or '400' }};">{{ settings.hero_subtitle }}</span></h1>
         <p>{{ settings.site_description }}</p>
     </header>
 </section>
