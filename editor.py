@@ -9,7 +9,7 @@ app = Flask(__name__)
 CONTENT_DIR = 'content'
 TEMPLATES_DIR = 'templates'
 
-# HTML Template with Pico.css and custom styles
+# HTML Template with Pico.css and Theme Toggle
 ADMIN_HTM = """
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
@@ -19,36 +19,42 @@ ADMIN_HTM = """
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.purple.min.css">
     <style>
         :root { --font-family: 'Inter', sans-serif; }
-        body { background: #0b0e14; }
         .container { max-width: 1000px; padding: 2rem 0; }
-        .post-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); }
-        .editor-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
-        textarea { height: 400px; font-family: 'Fira Code', monospace; }
+        .post-card { border-radius: 1rem !important; }
+        textarea { height: 450px; font-family: 'Fira Code', monospace; }
         .btn-group { display: flex; gap: 1rem; }
-        .label-text { font-weight: bold; margin-bottom: 0.5rem; display: block; }
-        .alert { padding: 1rem; border-radius: 8px; margin-bottom: 1rem; }
-        .success { background: rgba(56, 189, 248, 0.1); border: 1px solid #38bdf8; color: #38bdf8; }
     </style>
+    <script>
+        const theme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', theme);
+        function toggleTheme() {
+            const tgt = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', tgt);
+            localStorage.setItem('theme', tgt);
+        }
+    </script>
 </head>
 <body class="container">
-
     <nav>
-        <ul><li><strong><a href="/">CMS EDITOR</a></strong></li></ul>
+        <ul><li><strong><a href="/" class="secondary">PYTHON CMS EDITOR</a></strong></li></ul>
         <ul>
-            <li><a href="/" class="secondary">DASHBOARD</a></li>
+            <li><button class="outline secondary" onclick="toggleTheme()" style="border:none; box-shadow:none;">🌓</button></li>
             <li><a href="/new" role="button" class="outline">NEW POST +</a></li>
         </ul>
     </nav>
 
     {% if message %}
-    <div class="alert success">{{ message }}</div>
+    <div style="background:rgba(139,92,246,0.1); border:1px solid #8b5cf6; padding:1rem; border-radius:10px; margin-bottom:2rem; color:#8b5cf6;">
+        {{ message }}
+    </div>
     {% endif %}
 
     {% if page == 'dashboard' %}
-    <header class="editor-header">
-        <h1>Dashboard. <span style="opacity: 0.5;">Manage your content.</span></h1>
+    <header style="margin-bottom:3rem;">
+        <h1>Your Dashboard.</h1>
+        <p class="secondary">Manage your content across GitHub.</p>
         <div class="btn-group">
-            <a href="/build" role="button" class="contrast">REBUILD SITE</a>
+            <a href="/build" role="button" class="contrast">REBUILD LOCAL</a>
             <a href="/publish" role="button">PUBLISH LIVE 🚀</a>
         </div>
     </header>
@@ -56,11 +62,13 @@ ADMIN_HTM = """
     <div class="grid">
         {% for post in posts %}
         <article class="post-card">
-            <h3>{{ post.title }}</h3>
-            <p><small class="secondary">{{ post.date }}</small></p>
-            <p>{{ post.summary }}</p>
+            <header>
+                <strong>{{ post.title }}</strong>
+                <div style="font-size:0.8rem; opacity:0.6;">{{ post.date }}</div>
+            </header>
+            <p style="font-size:0.9rem;">{{ post.summary }}</p>
             <footer>
-                <a href="/edit/{{ post.filename }}" role="button" class="secondary outline">EDIT</a>
+                <a href="/edit/{{ post.filename }}" role="button" class="secondary outline full-width">EDIT POST</a>
             </footer>
         </article>
         {% endfor %}
@@ -68,37 +76,21 @@ ADMIN_HTM = """
     {% endif %}
 
     {% if page == 'editor' %}
-    <header class="editor-header">
-        <h1>Editing: <span style="opacity: 0.5;">{{ filename or 'New Post' }}</span></h1>
-        <a href="/" class="secondary">BACK &larr;</a>
+    <header style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem;">
+        <h2>{{ filename or 'Crafting New Story' }}</h2>
+        <a href="/" class="secondary">&larr; Dashboard</a>
     </header>
 
     <form method="POST">
-        <label>
-            <span class="label-text">Title</span>
-            <input type="text" name="title" value="{{ frontmatter.title or '' }}" required placeholder="Post Title">
-        </label>
-
+        <label>Post Title <input type="text" name="title" value="{{ frontmatter.title or '' }}" required></label>
         <div class="grid">
-            <label>
-                <span class="label-text">Date</span>
-                <input type="date" name="date" value="{{ frontmatter.date or '2026-04-06' }}">
-            </label>
-            <label>
-                <span class="label-text">Summary</span>
-                <input type="text" name="summary" value="{{ frontmatter.summary or '' }}" placeholder="Small excerpt">
-            </label>
+            <label>Date <input type="date" name="date" value="{{ frontmatter.date or '2026-04-06' }}"></label>
+            <label>Summary <input type="text" name="summary" value="{{ frontmatter.summary or '' }}"></label>
         </div>
-
-        <label>
-            <span class="label-text">Content (Markdown)</span>
-            <textarea name="content" placeholder="Write your story here...">{{ content or '' }}</textarea>
-        </label>
-
-        <button type="submit" class="primary">SAVE CHANGES</button>
+        <label>Markdown Content <textarea name="content" required>{{ content or '' }}</textarea></label>
+        <button type="submit">SAVE TO CONTENT FOLDER</button>
     </form>
     {% endif %}
-
 </body>
 </html>
 """

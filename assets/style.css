@@ -26,6 +26,10 @@ html, body, article, nav, a, input, button {
     transition: background-color var(--transition-speed), color var(--transition-speed), border-color var(--transition-speed), box-shadow var(--transition-speed);
 }
 
+.container {
+    max-width: 1000px;
+}
+
 body {
     font-family: var(--font-family);
     min-height: 100vh;
