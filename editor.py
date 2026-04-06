@@ -56,7 +56,18 @@ ADMIN_HTM = """
         <p class="secondary">Manage your hero text and footer globally.</p>
     </header>
     <form method="POST">
-        <label>Hero Title <input type="text" name="hero_title" value="{{ settings.hero_title or '' }}"></label>
+        <div class="grid">
+            <label>Hero Title <input type="text" name="hero_title" value="{{ settings.hero_title or '' }}"></label>
+            <label>Title Weight
+                <select name="hero_title_weight">
+                    <option value="400" {% if settings.hero_title_weight == '400' %}selected{% endif %}>400 - Regular</option>
+                    <option value="500" {% if settings.hero_title_weight == '500' %}selected{% endif %}>500 - Medium</option>
+                    <option value="600" {% if settings.hero_title_weight == '600' %}selected{% endif %}>600 - Semi-Bold</option>
+                    <option value="700" {% if settings.hero_title_weight == '700' %}selected{% endif %}>700 - Bold</option>
+                    <option value="800" {% if settings.hero_title_weight == '800' %}selected{% endif %}>800 - Extra Bold</option>
+                </select>
+            </label>
+        </div>
         <label>Hero Subtitle <input type="text" name="hero_subtitle" value="{{ settings.hero_subtitle or '' }}"></label>
         <label>Site Description <textarea name="site_description">{{ settings.site_description or '' }}</textarea></label>
         <label>Footer Text (HTML allowed) <input type="text" name="footer_text" value="{{ settings.footer_text or '' }}"></label>
@@ -183,7 +194,8 @@ def manage_settings():
 
     if request.method == 'POST':
         # Update settings dictionary
-        for key in ['hero_title', 'hero_subtitle', 'site_description', 'footer_text']:
+        fields = ['hero_title', 'hero_title_weight', 'hero_subtitle', 'site_description', 'footer_text']
+        for key in fields:
             settings[key] = request.form.get(key, '')
         with open(filepath, 'w', encoding='utf-8') as f:
             yaml.dump(settings, f)
