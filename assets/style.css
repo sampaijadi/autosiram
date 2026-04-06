@@ -130,11 +130,31 @@ a, a:hover, a:focus {
 }
 
 .theme-toggle svg {
-    width: 20px;
-    height: 20px;
-    fill: currentColor;
+    width: 24px;
+    height: 24px;
+    fill: none; /* Already using stroke in the SVG icon */
 }
 
-@media (max-width: 768px) {
-    .hero-main h1 { font-size: 2.5rem; }
+.post-card time, 
+.post-header .date,
+.secondary {
+    font-size: 0.75rem !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Global No-Underline Purge */
+a, a:hover, a:focus, h1, h2, h3, h4, h5, h6, .logo-text, .post-card * {
+    text-decoration: none !important;
+    outline: none !important;
+}
+
+.content-body a {
+    color: var(--primary);
+    border-bottom: 1px solid rgba(139, 92, 246, 0.1); /* Subtle indicator instead of underline */
+    transition: border-color 0.3s;
+}
+
+.content-body a:hover {
+    border-bottom-color: var(--primary);
 }
