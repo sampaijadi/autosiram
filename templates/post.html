@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<article class="content-area">
+    <header>
+        <time class="secondary">{{ date }}</time>
+        <h1>{{ title }}</h1>
+    </header>
+    <section class="content-body">
+        {{ content | safe }}
+    </section>
+    <footer>
+        <a href="/" class="secondary">&larr; Back to Home</a>
+    </footer>
+</article>
+{% endblock %}

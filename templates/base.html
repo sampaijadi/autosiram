@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} - Python CMS</title>
+    <meta name="description" content="A beautiful static site generated with Python CMS.">
+    <!-- Pico.css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.purple.min.css">
+    <!-- Custom Enhancements -->
+    <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+    <header class="container">
+        <nav>
+            <ul>
+                <li><strong><a href="/" class="logo-text">PYTHON CMS</a></strong></li>
+            </ul>
+            <ul>
+                <li><a href="/">HOME</a></li>
+                <li><a href="#" class="secondary">ABOUT</a></li>
+                <li><a href="https://github.com/yourusername/reponame" role="button" class="outline">DEPLOY TO GITHUB</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="container">
+        <hr>
+        <small>&copy; 2026 Python-Powered Static CMS. Built for Performance.</small>
+    </footer>
+</body>
+</html>

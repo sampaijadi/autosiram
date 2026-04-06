@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero-main">
+    <header>
+        <h1>Welcome to <span style="color: var(--primary);">Your Story.</span> <br> <span style="opacity: 0.6; font-size: 0.8em;">Static. Fast. Elegant.</span></h1>
+        <p>A minimalist CMS powered by Python and Pico.css. Perfect for hosting on GitHub Pages.</p>
+    </header>
+</section>
+
+<section class="posts-list">
+    <div class="grid">
+        {% for post in posts %}
+        <a href="{{ post.url }}" class="post-card-link">
+            <article class="post-card">
+                <header>
+                    <time>{{ post.date }}</time>
+                    <h2 class="post-title">{{ post.title }}</h2>
+                </header>
+                <p>{{ post.summary }}</p>
+                <footer>
+                    <span class="secondary">Read More &rarr;</span>
+                </footer>
+            </article>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
