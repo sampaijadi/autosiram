@@ -4,7 +4,7 @@ date: "2026-04-06"
 summary: "An exploration into why static sites are making a massive comeback in the era of serverless computing."
 ---
 
-# The Renaissance of Static Sites
+# The Renaissance of Static Sites - TEST
 
 In a world where speed is everything, **static sites** are once again taking the throne. With modern tools and CDNs, we can deliver content at the speed of light.
 
